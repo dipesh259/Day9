@@ -1,45 +1,72 @@
 #!/bin/bash 
 
 #INITIAL VALUE TO ASSING PRESENT
-
-WAGE_PER_HOUR=20
-IS_FULL_TIME=2
-IS_PART_TIME=1
-EMPLOYEE_HOUR_FULLTIME=8
-EMPLOYEE_HOUR_PARTTIME=4
-read -p "To number of working day :" NUMBER_OF_WORKING_DAYS
-read -p "To number of working hours :" NUMBER_OF_WORKING_HOURS
+isPresent=1
 
 #TO VARIABLE
 
-totalSalary=0
-totalEmployeeHours=0
-totalWorkingDays=0
+randomNumber=$((RANDOM%2))
+echo "Choice"
+read -p "To use case five case statement and case choice zero is Daily employee wage and case choice one is parttime employee wage:" caseChoice
 
-#CALCULATE DAILY WAGE TILL CONDITION SATISFIED
+#TO CHECK THE EMPLOYEE PRESENT AND ABSENT
 
-while [[ $totalEmployeeHours -le $NUMBER_OF_WORKING_HOURS &&
-			$totalWorkingDays -le $NUMBER_OF_WORKING_DAYS ]]
-do
-	((totalWorkingDays++))
-	randomShiftCheck=$((RANDOM%3))
-	case $randomShiftCheck in
+if [ $randomNumber -eq 	$isPresent ]
+then
+	echo "Employee Present"
 
-		$IS_FULL_TIME )
-			employeeHour=$((EMPLOYEE_HOUR_FULLTIME))
-			;;
-		$IS_PART_TIME )
-			employeeHour=$((EMPLOYEE_HOUR_PARTTIME))
-			;;
-		* )
-			employeeHour=0
-			;;
-	esac
-	totalEmployeeHours=$(($totalEmployeeHours + $employeeHour))
-	echo "To total employee hours :" $totalEmployeeHours	
-done
+#using use case statement
 
+case "$caseChoice" in
+	0) echo "To calculate Daily Employee Wage"
 
-#PRINT SALARY FOR A MONTH
+	#TO FUNCTION CALCULATE EMPLOYEE WAGE
+		
+		function calculateDailyEmployeeWageWorkHours(){
+		read -p "Assume Wage per hour is :" isWagePerHour "rupees"
+		isDayHour=8
 
-totalWorkingWage=$(($totalEmployeeHours * $WAGE_PER_HOUR))
+	#TO ONE DAY WORKING EMPLOYEE WAGE
+		
+		calculateEmployeeWageForOneDay=$(( $isWagePerHour * $isDayHour ))
+		read -p "working days :" isDay
+	
+	#TO MONTH DAY WORKING EMPLOYEE WAGE
+		
+		calculateEmployeeWageForMonth=$(( $calculateEmployeeWageForOneDay  *  $isDay ))
+		echo "To calculate employee wages for a Month :" $calculateEmployeeWageForMonth "rupees"
+		}
+	
+	#TO FUNCTION CALL
+		
+		calculateDailyEmployeeWageWorkHours
+		;;
+	
+	1)echo "To calculate part time Employee and wage"
+
+	#TO FUNCTION CALCULATE PART TIME EMPLOYEE WAGE
+		
+		function partTimeEmployeeAndWageWorkHours(){
+		read -p "Assume Wage per hour is :" isWagePerHour "rupees"
+		isDayHour=8
+
+	#TO ONE DAY WORKING EMPLOYEE WAGE
+		
+		calculateEmployeeWageForOneDay=$(( $isWagePerHour * $isDayHour ))
+		read -p "TO part time working days :" isDay
+
+	#TO MONTH DAY WORKING EMPLOYEE WAGE
+		
+		calculateEmployeeWageForMonth=$(( $calculateEmployeeWageForOneDay * $isDay ))
+		echo "To calculate employee part time wages for a Month :" $calculateEmployeeWageForMonth "rupees"
+		}
+		partTimeEmployeeAndWageWorkHours
+		;;
+		*)echo "No choice."
+		;;
+esac
+
+else
+   echo "Employee Absent."
+ fi
+
